@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Utilidades Especiales</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e5e7eb;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #f8fafc;
+            position: relative;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header Styling */
+        .header {
+            background-color: #1a2744;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            border-bottom: 4px solid #c9a84c;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .text-navy { color: #1a2744; }
+        .bg-navy { background-color: #1a2744; }
+        .text-gold { color: #c9a84c; }
+        .bg-gold { background-color: #c9a84c; }
+        .border-gold { border-color: #c9a84c; }
+        
+        /* Horizontal Card Styling */
+        .h-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid #e2e8f0;
+            height: 240px; /* Fixed height for symmetry */
+        }
+        
+        .h-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-icon-section {
+            width: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .card-content {
+            padding: 24px 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .card-visual {
+            width: 280px;
+            background-color: #f8fafc;
+            border-left: 1px solid #e2e8f0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Specific Styles */
+        .security-card .card-icon-section { background-color: #1a2744; color: white; }
+        .security-card .accent-text { color: #dc2626; } /* Red for alerts */
+        
+        .promo-card .card-icon-section { background-color: #c9a84c; color: #1a2744; }
+        .promo-card .accent-text { color: #b45309; } /* Dark gold */
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .audit-row {
+            font-family: 'Courier New', monospace;
+            font-size: 0.65rem;
+            padding: 4px 8px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .audit-row:last-child { border-bottom: none; }
+        
+        .rank-step {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+        .rank-step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #c9a84c;
+        }
+        .rank-step::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 14px;
+            width: 2px;
+            height: 100%;
+            background-color: #e2e8f0;
+        }
+        .rank-step:last-child { margin-bottom: 0; }
+        .rank-step:last-child::after { display: none; }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #c9a84c;
+            color: #1a2744;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background-color: #d4b260;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 168, 76, 0.3);
+        }
+        .sticky-footer {
+            position: sticky;
+            bottom: 0;
+            background-color: #f3f4f6;
+            z-index: 20;
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Pattern -->
+<div class="absolute inset-0 bg-grid-pattern opacity-30 z-0"></div>
+<!-- Header -->
+<div class="header shadow-md">
+<div class="flex items-center w-full">
+<div class="w-10 h-10 bg-white rounded flex items-center justify-center mr-4 shadow-sm">
+<i class="fas fa-tools text-xl text-navy"></i>
+</div>
+<div>
+<h1 class="text-2xl font-bold text-white uppercase tracking-wider">Utilidades Especiales</h1>
+<p class="text-xs text-gold font-medium tracking-widest">HERRAMIENTAS DE ALTO NIVEL Y AUDITORÍA</p>
+</div>
+<div class="ml-auto flex items-center space-x-2">
+<span class="px-3 py-1 bg-white bg-opacity-10 rounded text-xs text-gray-300 font-mono border border-gray-600">
+<i class="fas fa-shield-alt mr-2 text-gold"></i>RESTRICTED
+            </span>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 p-10 z-10 flex flex-col justify-center space-y-8">
+<!-- Card 1: Desencriptador (Security) -->
+<div class="h-card security-card">
+<!-- Icon Section -->
+<div class="card-icon-section">
+<div class="w-16 h-16 rounded-full bg-white bg-opacity-10 flex items-center justify-center mb-3 backdrop-filter backdrop-blur-sm border border-white border-opacity-20">
+<i class="fas fa-user-secret text-3xl text-white"></i>
+</div>
+<h3 class="text-sm font-bold text-center px-4 uppercase tracking-wide">Auditoría</h3>
+<div class="mt-4 px-3 py-1 bg-red-600 rounded text-[10px] font-bold tracking-wider">NIVEL 1</div>
+</div>
+<!-- Content Section -->
+<div class="card-content">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h2 class="text-xl font-bold text-navy">DesencriptadorController</h2>
+<p class="text-xs font-mono text-gray-400">MODULE: AUDIT_CORE_V2</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                    Módulo especializado que permite a usuarios con privilegios elevados visualizar datos reales ("Clear Text") de una orden sin ejecutarla. Diseñado para auditorías forenses y verificación de integridad.
+                </p>
+<div class="flex space-x-4 mt-auto">
+<div class="flex items-center text-xs text-gray-500">
+<i class="fas fa-fingerprint text-red-500 mr-2"></i>
+<span>MFA Requerido</span>
+</div>
+<div class="flex items-center text-xs text-gray-500">
+<i class="fas fa-eye-slash text-red-500 mr-2"></i>
+<span>Visibilidad Parcial</span>
+</div>
+</div>
+</div>
+<!-- Visual Section (Mock Logs) -->
+<div class="card-visual">
+<div class="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
+<p class="text-xs font-bold text-gray-500 uppercase"><i class="fas fa-list-alt mr-1"></i> Log de Acceso</p>
+<div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+</div>
+<div class="bg-white border border-gray-200 rounded text-gray-500">
+<div class="audit-row">
+<span>ADMIN_SYS</span>
+<span class="text-red-600">DECRYPT_REQ</span>
+</div>
+<div class="audit-row bg-gray-50">
+<span>IP: 10.20.1.5</span>
+<span>14:02:22</span>
+</div>
+<div class="audit-row">
+<span>ORDEN #4052</span>
+<span class="text-blue-600">AUDIT_MODE</span>
+</div>
+<div class="audit-row bg-gray-50">
+<span>TOKEN_MFA</span>
+<span class="text-green-600">VERIFIED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: Ascensos (HR) -->
+<div class="h-card promo-card">
+<!-- Icon Section -->
+<div class="card-icon-section relative overflow-hidden">
+<div class="absolute inset-0 bg-yellow-500 opacity-10"></div>
+<div class="w-16 h-16 rounded-full bg-white bg-opacity-20 flex items-center justify-center mb-3 border border-white border-opacity-30">
+<i class="fas fa-medal text-3xl text-navy"></i>
+</div>
+<h3 class="text-sm font-bold text-center px-4 uppercase tracking-wide text-navy">Ascensos</h3>
+<div class="mt-4 px-3 py-1 bg-navy text-gold rounded text-[10px] font-bold tracking-wider">LEGAL</div>
+</div>
+<!-- Content Section -->
+<div class="card-content">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h2 class="text-xl font-bold text-navy">AscensosController</h2>
+<p class="text-xs font-mono text-gray-400">MODULE: HR_PROMOTION_ENGINE</p>
+</div>
+</div>
+<p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                    Motor lógico que gestiona la promoción de grados militares. Valida automáticamente el cumplimiento de tiempos de mando, requisitos académicos y disponibilidad de vacantes por ley.
+                </p>
+<div class="flex space-x-4 mt-auto">
+<div class="flex items-center text-xs text-gray-500">
+<i class="fas fa-balance-scale text-yellow-600 mr-2"></i>
+<span>Validación Legal</span>
+</div>
+<div class="flex items-center text-xs text-gray-500">
+<i class="fas fa-hourglass-half text-yellow-600 mr-2"></i>
+<span>Tiempo en Grado</span>
+</div>
+</div>
+</div>
+<!-- Visual Section (Timeline) -->
+<div class="card-visual">
+<div class="flex items-center justify-between mb-3 border-b border-gray-200 pb-2">
+<p class="text-xs font-bold text-gray-500 uppercase"><i class="fas fa-route mr-1"></i> Flujo de Promoción</p>
+</div>
+<div class="pl-2">
+<div class="rank-step">
+<p class="text-xs font-bold text-navy">Candidato Elegible</p>
+<p class="text-[10px] text-gray-400">Cumple tiempo mínimo</p>
+</div>
+<div class="rank-step">
+<p class="text-xs font-bold text-navy">Evaluación Académica</p>
+<p class="text-[10px] text-gray-400">Cursos completados</p>
+</div>
+<div class="rank-step">
+<p class="text-xs font-bold text-navy">Vacante Disponible</p>
+<p class="text-[10px] text-green-600 font-bold">Verificación OK</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="sticky-footer w-full py-3 bg-gray-100 border-t border-gray-300 flex items-center justify-between px-12 z-20 mt-auto">
+<div class="flex items-center space-x-4">
+<a href="pag6.html" class="nav-button"><i class="fas fa-arrow-left"></i> Anterior</a>
+<p class="text-xs text-gray-400">PÁGINA 07</p>
+</div>
+<div class="flex items-center space-x-4">
+<div class="w-2 h-2 rounded-full bg-gold"></div>
+<p class="text-xs text-gray-500 font-bold tracking-wider">UTILIDADES Y HERRAMIENTAS</p>
+<div class="h-3 w-px bg-gray-300"></div>
+<a href="pag8.html" class="nav-button">Siguiente <i class="fas fa-arrow-right"></i></a>
+</div>
+</div>
+</div>
+</body>
+</html>

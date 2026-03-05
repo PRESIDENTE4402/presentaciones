@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Seguridad y Arquitectura</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e5e7eb;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #f8fafc;
+            position: relative;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header Styling */
+        .header {
+            background-color: #1a2744;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            border-bottom: 4px solid #c9a84c;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .text-navy { color: #1a2744; }
+        .bg-navy { background-color: #1a2744; }
+        .text-gold { color: #c9a84c; }
+        .bg-gold { background-color: #c9a84c; }
+        .border-gold { border-color: #c9a84c; }
+        
+        /* Matrix Card Styling */
+        .matrix-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .matrix-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #cbd5e1;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-right: 16px;
+        }
+
+        /* Specific Card Themes */
+        .theme-encrypt .icon-box { background-color: #eff6ff; color: #2563eb; }
+        .theme-encrypt { border-top: 4px solid #2563eb; }
+
+        .theme-rbac .icon-box { background-color: #f5f3ff; color: #7c3aed; }
+        .theme-rbac { border-top: 4px solid #7c3aed; }
+
+        .theme-db .icon-box { background-color: #f0f9ff; color: #0ea5e9; }
+        .theme-db { border-top: 4px solid #0ea5e9; }
+
+        .theme-audit .icon-box { background-color: #fffbeb; color: #d97706; }
+        .theme-audit { border-top: 4px solid #d97706; }
+
+        .bg-grid-dots {
+            background-image: radial-gradient(#cbd5e1 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+
+        .badge {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #c9a84c;
+            color: #1a2744;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background-color: #d4b260;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 168, 76, 0.3);
+        }
+        .sticky-footer {
+            position: sticky;
+            bottom: 0;
+            background-color: #f3f4f6;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Pattern -->
+<div class="absolute inset-0 bg-grid-dots opacity-30 z-0"></div>
+<!-- Header -->
+<div class="header shadow-md">
+<div class="flex items-center w-full">
+<div class="w-10 h-10 bg-white rounded flex items-center justify-center mr-4 shadow-sm">
+<i class="fas fa-shield-virus text-xl text-navy"></i>
+</div>
+<div>
+<h1 class="text-2xl font-bold text-white uppercase tracking-wider">Seguridad y Arquitectura</h1>
+<p class="text-xs text-gold font-medium tracking-widest">INFRAESTRUCTURA DE DEFENSA DIGITAL</p>
+</div>
+<div class="ml-auto flex items-center space-x-2">
+<span class="px-3 py-1 bg-white bg-opacity-10 rounded text-xs text-gray-300 font-mono border border-gray-600">
+<i class="fas fa-lock mr-2 text-gold"></i>SECURE LAYER
+            </span>
+</div>
+</div>
+</div>
+<!-- Main Content: 2x2 Matrix -->
+<div class="flex-1 p-8 grid grid-cols-2 gap-6 z-10">
+<!-- Card 1: Cifrado -->
+<div class="matrix-card theme-encrypt p-6">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center">
+<div class="icon-box">
+<i class="fas fa-key"></i>
+</div>
+<div>
+<h3 class="text-lg font-bold text-navy">Cifrado de Aplicación</h3>
+<p class="text-xs text-gray-500">Protección de Datos Sensibles</p>
+</div>
+</div>
+<span class="badge bg-blue-100 text-blue-700 border border-blue-200">AES-256</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-gray-600 mb-4 text-justify leading-relaxed">
+                    La seguridad se aplica en la capa del controlador antes de la persistencia. Las llaves de cifrado se gestionan externamente mediante variables de entorno (.env), evitando su exposición en el código fuente.
+                </p>
+<div class="bg-blue-50 rounded p-3 border border-blue-100 flex items-center space-x-3">
+<div class="flex flex-col items-center">
+<i class="fas fa-file-csv text-gray-400 text-xs mb-1"></i>
+<span class="text-[10px] text-gray-500">DATA</span>
+</div>
+<i class="fas fa-arrow-right text-blue-400 text-xs"></i>
+<div class="flex flex-col items-center p-1 bg-white rounded shadow-sm">
+<i class="fas fa-cog text-blue-600 text-xs mb-1"></i>
+<span class="text-[10px] font-bold text-blue-800">ENCRYPT</span>
+</div>
+<i class="fas fa-arrow-right text-blue-400 text-xs"></i>
+<div class="flex flex-col items-center">
+<i class="fas fa-database text-navy text-xs mb-1"></i>
+<span class="text-[10px] text-gray-500">DB</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2: RBAC -->
+<div class="matrix-card theme-rbac p-6">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center">
+<div class="icon-box">
+<i class="fas fa-id-card-alt"></i>
+</div>
+<div>
+<h3 class="text-lg font-bold text-navy">Control de Acceso (RBAC)</h3>
+<p class="text-xs text-gray-500">Roles y Privilegios</p>
+</div>
+</div>
+<span class="badge bg-purple-100 text-purple-700 border border-purple-200">Jerárquico</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-gray-600 mb-4 text-justify leading-relaxed">
+                    Sistema estricto de segregación de funciones basado en roles. Garantiza que solo el personal autorizado acceda a módulos críticos como ascensos o reportes confidenciales.
+                </p>
+<div class="flex flex-wrap gap-2 mt-auto">
+<div class="flex items-center bg-gray-100 px-2 py-1 rounded text-xs text-gray-600 border border-gray-200">
+<i class="fas fa-user-shield mr-2 text-purple-600"></i> Admin
+                    </div>
+<div class="flex items-center bg-gray-100 px-2 py-1 rounded text-xs text-gray-600 border border-gray-200">
+<i class="fas fa-user-tie mr-2 text-blue-600"></i> Oficial G-1
+                    </div>
+<div class="flex items-center bg-gray-100 px-2 py-1 rounded text-xs text-gray-600 border border-gray-200">
+<i class="fas fa-eye mr-2 text-gray-500"></i> Auditor
+                    </div>
+</div>
+</div>
+</div>
+<!-- Card 3: Informix/Intranet -->
+<div class="matrix-card theme-db p-6">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center">
+<div class="icon-box">
+<i class="fas fa-server"></i>
+</div>
+<div>
+<h3 class="text-lg font-bold text-navy">Conexión a Intranet</h3>
+<p class="text-xs text-gray-500">Base de Datos Informix</p>
+</div>
+</div>
+<span class="badge bg-sky-100 text-sky-700 border border-sky-200">Legacy Bridge</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-gray-600 mb-4 text-justify leading-relaxed">
+                    El sistema opera dentro de una intranet cerrada. Utiliza sesiones activas que proveen credenciales directas a la base de datos Informix, asegurando trazabilidad por usuario de DB.
+                </p>
+<ul class="text-xs text-gray-500 space-y-2 mt-auto">
+<li class="flex items-center"><i class="fas fa-network-wired text-sky-500 w-5 text-center mr-2"></i>Entorno Aislado (No Internet)</li>
+<li class="flex items-center"><i class="fas fa-hourglass-start text-sky-500 w-5 text-center mr-2"></i>TTL de Sesión Corto</li>
+</ul>
+</div>
+</div>
+<!-- Card 4: Auditoría y MFA -->
+<div class="matrix-card theme-audit p-6">
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center">
+<div class="icon-box">
+<i class="fas fa-clipboard-check"></i>
+</div>
+<div>
+<h3 class="text-lg font-bold text-navy">Auditoría y Vigilancia</h3>
+<p class="text-xs text-gray-500">Logs y Doble Factor</p>
+</div>
+</div>
+<span class="badge bg-amber-100 text-amber-700 border border-amber-200">Activo</span>
+</div>
+<div class="flex-1">
+<p class="text-sm text-gray-600 mb-4 text-justify leading-relaxed">
+                    Registro inmutable de acciones. Módulos sensibles (como el Desencriptador) pueden requerir Autenticación de Doble Factor (MFA) para elevar privilegios temporalmente.
+                </p>
+<div class="bg-gray-50 rounded border border-gray-200 p-2 text-xs font-mono text-gray-500">
+<div class="flex justify-between mb-1">
+<span>ACCESS_LOG</span>
+<span class="text-green-600">OK</span>
+</div>
+<div class="flex justify-between">
+<span>MFA_TOKEN</span>
+<span class="text-amber-600">REQ_7829</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="sticky-footer w-full py-3 bg-gray-100 border-t border-gray-300 flex items-center justify-between px-12 z-20">
+<div class="flex items-center space-x-4">
+<a href="pag7.html" class="nav-button"><i class="fas fa-arrow-left"></i> Anterior</a>
+<p class="text-xs text-gray-400">PÁGINA 08</p>
+</div>
+<div class="flex items-center space-x-4">
+<div class="w-2 h-2 rounded-full bg-gold"></div>
+<p class="text-xs text-gray-500 font-bold tracking-wider">MATRIZ DE SEGURIDAD</p>
+<div class="h-3 w-px bg-gray-300"></div>
+<a href="pag9.html" class="nav-button">Siguiente <i class="fas fa-arrow-right"></i></a>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ciclo de Vida de una Orden</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e5e7eb;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #f8fafc;
+            position: relative;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header Styling */
+        .header {
+            background-color: #1a2744;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            border-bottom: 4px solid #c9a84c;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .text-navy { color: #1a2744; }
+        .bg-navy { background-color: #1a2744; }
+        .text-gold { color: #c9a84c; }
+        .bg-gold { background-color: #c9a84c; }
+        .border-gold { border-color: #c9a84c; }
+        
+        /* Timeline Styles */
+        .timeline-track {
+            position: absolute;
+            top: 45px; /* Centers with the icon circle */
+            left: 10%;
+            right: 10%;
+            height: 4px;
+            background-color: #e2e8f0;
+            z-index: 0;
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 45px;
+            left: 10%;
+            width: 75%; /* Simulates progress */
+            height: 4px;
+            background-color: #c9a84c;
+            z-index: 0;
+        }
+
+        .phase-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid transparent;
+            transition: transform 0.3s ease;
+            position: relative;
+            margin-top: 24px;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .phase-icon-wrapper {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: #f8fafc;
+            border: 4px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .active-phase .phase-icon-wrapper {
+            background-color: #1a2744;
+            border-color: #c9a84c;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .inactive-phase .phase-icon-wrapper {
+            background-color: white;
+            border-color: #e2e8f0;
+            color: #94a3b8;
+        }
+
+        .connector-arrow {
+            position: absolute;
+            top: 35px;
+            right: -50%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 1;
+            color: #cbd5e1;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #c9a84c;
+            color: #1a2744;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background-color: #d4b260;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 168, 76, 0.3);
+        }
+        .sticky-footer {
+            position: sticky;
+            bottom: 0;
+            background-color: #f3f4f6;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Header -->
+<div class="header shadow-md">
+<div class="flex items-center w-full">
+<div class="w-10 h-10 bg-white rounded flex items-center justify-center mr-4 shadow-sm">
+<i class="fas fa-stream text-xl text-navy"></i>
+</div>
+<div>
+<h1 class="text-2xl font-bold text-white uppercase tracking-wider">Ciclo de Vida de una Orden</h1>
+<p class="text-xs text-gold font-medium tracking-widest">FLUJO DE PROCESO: DE BORRADOR A AUDITORÍA</p>
+</div>
+<div class="ml-auto flex items-center space-x-2">
+<span class="px-3 py-1 bg-white bg-opacity-10 rounded text-xs text-gray-300 font-mono border border-gray-600">
+<i class="fas fa-clock mr-2 text-gold"></i>WORKFLOW
+                </span>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 p-10 flex flex-col justify-center relative z-10">
+<!-- Timeline Wrapper -->
+<div class="relative w-full">
+<!-- Connecting Lines -->
+<div class="timeline-track"></div>
+<!-- Progress Line (indicates active flow) -->
+<div class="timeline-progress" style="width: 80%"></div>
+<!-- Phases Grid -->
+<div class="grid grid-cols-5 gap-4 relative z-10">
+<!-- Phase 1: Borrador -->
+<div class="flex flex-col items-center active-phase group">
+<div class="phase-icon-wrapper">
+<i class="fas fa-pencil-ruler text-3xl"></i>
+</div>
+<div class="phase-card w-full text-center border-t-gray-400">
+<span class="status-badge bg-gray-100 text-gray-600 border border-gray-200">
+                            Fase 1
+                        </span>
+<h3 class="text-sm font-bold text-navy mb-2">Borrador</h3>
+<p class="text-xs text-gray-500 leading-snug">
+                            Creación inicial del proyecto. Selección de personal y asignación tentativa de plazas.
+                        </p>
+</div>
+<div class="mt-2 text-gold text-xs font-bold">
+<i class="fas fa-check-circle"></i> INICIADO
+                    </div>
+</div>
+<!-- Phase 2: Revisión -->
+<div class="flex flex-col items-center active-phase group">
+<div class="phase-icon-wrapper">
+<i class="fas fa-user-tie text-3xl"></i>
+</div>
+<div class="phase-card w-full text-center border-t-yellow-500">
+<span class="status-badge bg-yellow-100 text-yellow-700 border border-yellow-200">
+                            Fase 2
+                        </span>
+<h3 class="text-sm font-bold text-navy mb-2">Revisión</h3>
+<p class="text-xs text-gray-500 leading-snug">
+                            Validación por mandos superiores. Análisis de conflictos y disponibilidad.
+                        </p>
+</div>
+<div class="mt-2 text-gold text-xs font-bold">
+<i class="fas fa-check-circle"></i> VALIDADO
+                    </div>
+</div>
+<!-- Phase 3: Aprobación -->
+<div class="flex flex-col items-center active-phase group">
+<div class="phase-icon-wrapper">
+<i class="fas fa-file-signature text-3xl"></i>
+</div>
+<div class="phase-card w-full text-center border-t-green-600">
+<span class="status-badge bg-green-100 text-green-700 border border-green-200">
+                            Fase 3
+                        </span>
+<h3 class="text-sm font-bold text-navy mb-2">Aprobación</h3>
+<p class="text-xs text-gray-500 leading-snug">
+                            Firma digital y ejecución en base de datos. Persistencia de cambios organizacionales.
+                        </p>
+</div>
+<div class="mt-2 text-gold text-xs font-bold">
+<i class="fas fa-check-circle"></i> EJECUTADO
+                    </div>
+</div>
+<!-- Phase 4: Emisión -->
+<div class="flex flex-col items-center active-phase group">
+<div class="phase-icon-wrapper">
+<i class="fas fa-bullhorn text-3xl"></i>
+</div>
+<div class="phase-card w-full text-center border-t-blue-600">
+<span class="status-badge bg-blue-100 text-blue-700 border border-blue-200">
+                            Fase 4
+                        </span>
+<h3 class="text-sm font-bold text-navy mb-2">Emisión Oficial</h3>
+<p class="text-xs text-gray-500 leading-snug">
+                            Generación del documento PDF final (Orden General) para su distribución y publicación.
+                        </p>
+</div>
+<div class="mt-2 text-gold text-xs font-bold">
+<i class="fas fa-check-circle"></i> PUBLICADO
+                    </div>
+</div>
+<!-- Phase 5: Auditoría -->
+<div class="flex flex-col items-center inactive-phase group opacity-80">
+<div class="phase-icon-wrapper">
+<i class="fas fa-search-dollar text-3xl"></i>
+</div>
+<div class="phase-card w-full text-center border-t-red-500">
+<span class="status-badge bg-red-100 text-red-700 border border-red-200">
+                            Fase 5
+                        </span>
+<h3 class="text-sm font-bold text-gray-500 mb-2">Auditoría</h3>
+<p class="text-xs text-gray-400 leading-snug">
+                            Control posterior y seguimiento. Verificación de cumplimiento normativo y logs.
+                        </p>
+</div>
+<div class="mt-2 text-gray-400 text-xs font-bold">
+<i class="far fa-clock"></i> PENDIENTE
+                    </div>
+</div>
+</div>
+</div>
+<!-- Legend / Info Footer -->
+<div class="mt-12 grid grid-cols-3 gap-6 bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+<div class="flex items-center">
+<div class="w-10 h-10 rounded bg-blue-50 flex items-center justify-center mr-3 text-blue-600">
+<i class="fas fa-lock"></i>
+</div>
+<div>
+<p class="text-xs font-bold text-navy uppercase">Integridad de Datos</p>
+<p class="text-[10px] text-gray-500">Los registros son inmutables tras la Fase 3.</p>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 rounded bg-yellow-50 flex items-center justify-center mr-3 text-yellow-600">
+<i class="fas fa-exclamation-triangle"></i>
+</div>
+<div>
+<p class="text-xs font-bold text-navy uppercase">Punto de No Retorno</p>
+<p class="text-[10px] text-gray-500">La aprobación requiere token de seguridad.</p>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 rounded bg-green-50 flex items-center justify-center mr-3 text-green-600">
+<i class="fas fa-bell"></i>
+</div>
+<div>
+<p class="text-xs font-bold text-navy uppercase">Notificaciones</p>
+<p class="text-[10px] text-gray-500">Alertas automáticas a unidades afectadas.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="sticky-footer w-full py-3 bg-gray-100 border-t border-gray-300 flex items-center justify-between px-12 z-20 mt-auto">
+<div class="flex items-center space-x-4">
+<a href="pag9.html" class="nav-button"><i class="fas fa-arrow-left"></i> Anterior</a>
+<p class="text-xs text-gray-400">PÁGINA 10</p>
+</div>
+<div class="flex items-center space-x-4">
+<div class="w-2 h-2 rounded-full bg-gold"></div>
+<p class="text-xs text-gray-500 font-bold tracking-wider">CICLO DE VIDA</p>
+<div class="h-3 w-px bg-gray-300"></div>
+<a href="pag11.html" class="nav-button">Siguiente <i class="fas fa-arrow-right"></i></a>
+</div>
+</div>
+</div>
+</body>
+</html>

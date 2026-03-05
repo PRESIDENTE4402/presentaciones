@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Conclusión y Próximos Pasos</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e5e7eb;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #f8fafc;
+            position: relative;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header Styling */
+        .header {
+            background-color: #1a2744;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            border-bottom: 4px solid #c9a84c;
+            position: relative;
+            z-index: 20;
+        }
+        
+        .text-navy { color: #1a2744; }
+        .bg-navy { background-color: #1a2744; }
+        .text-gold { color: #c9a84c; }
+        .bg-gold { background-color: #c9a84c; }
+        .border-gold { border-color: #c9a84c; }
+        
+        /* Grid Pattern */
+        .bg-grid-dots {
+            background-image: radial-gradient(#cbd5e1 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+
+        /* Benefit Card Styling */
+        .benefit-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border-left: 4px solid transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        /* Roadmap Styling */
+        .roadmap-container {
+            background-color: #1a2744;
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #2d3f66;
+            height: 100%;
+        }
+
+        .roadmap-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .roadmap-marker {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #c9a84c;
+            color: #1a2744;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            margin-right: 16px;
+            flex-shrink: 0;
+            border: 2px solid #fff;
+        }
+
+        .roadmap-line {
+            position: absolute;
+            left: 11px;
+            top: 24px;
+            bottom: -20px;
+            width: 2px;
+            background-color: rgba(255,255,255,0.2);
+            z-index: 0;
+        }
+
+        .roadmap-item:last-child .roadmap-line {
+            display: none;
+        }
+
+        /* Colors for Cards */
+        .card-eff { border-left-color: #3b82f6; }
+        .card-eff .icon-circle { background-color: #eff6ff; color: #3b82f6; }
+        
+        .card-sec { border-left-color: #dc2626; }
+        .card-sec .icon-circle { background-color: #fef2f2; color: #dc2626; }
+
+        .card-leg { border-left-color: #eab308; }
+        .card-leg .icon-circle { background-color: #fefce8; color: #ca8a04; }
+
+        .card-trace { border-left-color: #7c3aed; }
+        .card-trace .icon-circle { background-color: #f5f3ff; color: #7c3aed; }
+
+        .cta-btn {
+            background-color: #c9a84c;
+            color: #1a2744;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        
+        .cta-btn:hover {
+            background-color: #dcb858;
+            transform: translateY(-2px);
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #c9a84c;
+            color: #1a2744;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background-color: #d4b260;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 168, 76, 0.3);
+        }
+        .sticky-footer {
+            position: sticky;
+            bottom: 0;
+            background-color: #f3f4f6;
+            z-index: 20;
+        }
+
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Pattern -->
+<div class="absolute inset-0 bg-grid-dots opacity-30 z-0"></div>
+<!-- Header -->
+<div class="header shadow-md">
+<div class="flex items-center w-full">
+<div class="w-10 h-10 bg-white rounded flex items-center justify-center mr-4 shadow-sm">
+<i class="fas fa-flag-checkered text-xl text-navy"></i>
+</div>
+<div>
+<h1 class="text-2xl font-bold text-white uppercase tracking-wider">Conclusión del Proyecto</h1>
+<p class="text-xs text-gold font-medium tracking-widest">VALOR ESTRATÉGICO Y HOJA DE RUTA</p>
+</div>
+<div class="ml-auto flex items-center space-x-2">
+<span class="px-3 py-1 bg-white bg-opacity-10 rounded text-xs text-gray-300 font-mono border border-gray-600">
+<i class="fas fa-check-circle mr-2 text-gold"></i>FINAL
+                    </span>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 p-10 flex flex-col z-10">
+<!-- Summary Quote -->
+<div class="mb-8 border-l-4 border-navy bg-white p-6 shadow-sm rounded-r-lg">
+<p class="text-lg text-gray-700 font-medium leading-relaxed italic">
+                    "La plataforma entrega un ecosistema integral que no solo moderniza la gestión administrativa, sino que asegura la <span class="text-navy font-bold">integridad del mando</span> mediante controles estrictos de seguridad y cumplimiento normativo automatizado."
+                </p>
+</div>
+<!-- Content Split -->
+<div class="flex gap-8 flex-1">
+<!-- Left: Key Benefits Grid -->
+<div class="w-2/3 grid grid-cols-2 gap-6">
+<!-- Benefit 1 -->
+<div class="benefit-card card-eff">
+<div class="icon-circle">
+<i class="fas fa-tachometer-alt"></i>
+</div>
+<h3 class="text-navy font-bold text-sm uppercase mb-2">Eficiencia Operativa</h3>
+<p class="text-xs text-gray-600 leading-snug">
+                            Reducción drástica en tiempos de procesamiento de órdenes. Flujos masivos optimizados y asignación inteligente de plazas.
+                        </p>
+</div>
+<!-- Benefit 2 -->
+<div class="benefit-card card-sec">
+<div class="icon-circle">
+<i class="fas fa-shield-alt"></i>
+</div>
+<h3 class="text-navy font-bold text-sm uppercase mb-2">Seguridad Militar</h3>
+<p class="text-xs text-gray-600 leading-snug">
+                            Protección de datos mediante cifrado AES-256 en capa de aplicación y arquitectura de red aislada (Intranet).
+                        </p>
+</div>
+<!-- Benefit 3 -->
+<div class="benefit-card card-leg">
+<div class="icon-circle">
+<i class="fas fa-gavel"></i>
+</div>
+<h3 class="text-navy font-bold text-sm uppercase mb-2">Cumplimiento Legal</h3>
+<p class="text-xs text-gray-600 leading-snug">
+                            Garantía de apego a la Ley de Personal mediante validaciones automáticas de tiempos y grados en los ascensos.
+                        </p>
+</div>
+<!-- Benefit 4 -->
+<div class="benefit-card card-trace">
+<div class="icon-circle">
+<i class="fas fa-fingerprint"></i>
+</div>
+<h3 class="text-navy font-bold text-sm uppercase mb-2">Trazabilidad Total</h3>
+<p class="text-xs text-gray-600 leading-snug">
+                            Auditoría granular de cada acción. Identificación precisa de quién, cuándo y qué modificó en cada orden.
+                        </p>
+</div>
+</div>
+<!-- Right: Next Steps Roadmap -->
+<div class="w-1/3">
+<div class="roadmap-container shadow-lg">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<i class="fas fa-map-signs text-6xl text-white"></i>
+</div>
+<h3 class="text-gold font-bold text-lg uppercase mb-6 border-b border-gray-600 pb-2">Próximos Pasos</h3>
+<div class="roadmap-item">
+<div class="roadmap-marker">1</div>
+<div class="roadmap-line"></div>
+<div>
+<h4 class="text-white font-bold text-sm">Pruebas de Integración (UAT)</h4>
+<p class="text-xs text-gray-400 mt-1">Validación final con usuarios expertos en entorno de QA.</p>
+</div>
+</div>
+<div class="roadmap-item">
+<div class="roadmap-marker">2</div>
+<div class="roadmap-line"></div>
+<div>
+<h4 class="text-white font-bold text-sm">Capacitación de Usuarios</h4>
+<p class="text-xs text-gray-400 mt-1">Workshops para oficiales de G-1 y administradores.</p>
+</div>
+</div>
+<div class="roadmap-item">
+<div class="roadmap-marker">3</div>
+<div class="roadmap-line"></div>
+<div>
+<h4 class="text-white font-bold text-sm">Despliegue en Producción</h4>
+<p class="text-xs text-gray-400 mt-1">Migración de datos y Go-Live en servidores seguros.</p>
+</div>
+</div>
+<div class="mt-8 text-center">
+<div class="bg-white bg-opacity-10 rounded p-4 border border-white border-opacity-20">
+<p class="text-[10px] text-gray-400 uppercase tracking-widest mb-2">ESTADO DEL PROYECTO</p>
+<span class="text-green-400 font-bold text-sm"><i class="fas fa-circle text-[8px] mr-2"></i>LISTO PARA ENTREGA</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="sticky-footer w-full py-3 bg-gray-100 border-t border-gray-300 flex items-center justify-between px-12 z-20 mt-auto">
+<div class="flex items-center space-x-4">
+<a href="pag11.html" class="nav-button"><i class="fas fa-arrow-left"></i> Anterior</a>
+<p class="text-xs text-gray-400">PÁGINA 12</p>
+</div>
+<div class="flex items-center space-x-4">
+<div class="w-2 h-2 rounded-full bg-gold"></div>
+<p class="text-xs text-gray-500 font-bold tracking-wider">CONCLUSIÓN</p>
+</div>
+</div>
+</div>
+</body>
+</html>

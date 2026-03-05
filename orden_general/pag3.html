@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestión de Proyectos</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e5e7eb;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #f8fafc;
+            position: relative;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header Styling */
+        .header {
+            background-color: #1a2744;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            border-bottom: 4px solid #c9a84c;
+            position: relative;
+            z-index: 20;
+        }
+        
+        /* Colors */
+        .text-navy { color: #1a2744; }
+        .bg-navy { background-color: #1a2744; }
+        .text-gold { color: #c9a84c; }
+        .bg-gold { background-color: #c9a84c; }
+        .border-gold { border-color: #c9a84c; }
+        
+        /* Card Styling */
+        .validation-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #1a2744; /* Default border */
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .validation-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-icon-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        /* Specific Card Accents */
+        .card-alert { border-top-color: #dc2626; }
+        .card-logic { border-top-color: #2563eb; }
+        .card-security { border-top-color: #059669; }
+        .card-admin { border-top-color: #c9a84c; }
+
+        .bg-alert-light { background-color: #fef2f2; }
+        .text-alert { color: #dc2626; }
+        
+        .bg-logic-light { background-color: #eff6ff; }
+        .text-logic { color: #2563eb; }
+        
+        .bg-security-light { background-color: #ecfdf5; }
+        .text-security { color: #059669; }
+        
+        .bg-admin-light { background-color: #fffbeb; }
+        .text-admin { color: #b45309; }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #c9a84c;
+            color: #1a2744;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .nav-button:hover {
+            background-color: #d4b260;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 168, 76, 0.3);
+        }
+        .sticky-footer {
+            position: sticky;
+            bottom: 0;
+            background-color: #f3f4f6;
+            z-index: 20;
+        }
+    </style>
+</head>
+<body>
+<div class="slide-container">
+<!-- Background Pattern -->
+<div class="absolute inset-0 bg-grid-pattern opacity-30 z-0"></div>
+<!-- Header -->
+<div class="header shadow-md">
+<div class="flex items-center w-full">
+<div class="w-10 h-10 bg-white rounded flex items-center justify-center mr-4 shadow-sm">
+<i class="fas fa-tasks text-xl text-navy"></i>
+</div>
+<div>
+<h1 class="text-2xl font-bold text-white uppercase tracking-wider">Gestión de Proyectos</h1>
+<p class="text-xs text-gold font-medium tracking-widest">PROYECTOCONTROLLER.PHP • NÚCLEO ADMINISTRATIVO</p>
+</div>
+<div class="ml-auto flex items-center space-x-2">
+<span class="px-3 py-1 bg-white bg-opacity-10 rounded text-xs text-gray-300 font-mono border border-gray-600">
+<i class="fas fa-code mr-2 text-gold"></i>v1.2.0
+                    </span>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 p-8 z-10 flex flex-col">
+<!-- Intro Section -->
+<div class="mb-6 bg-white p-6 rounded-lg shadow-sm border-l-4 border-gold flex items-center justify-between">
+<div class="max-w-4xl">
+<h2 class="text-xl font-bold text-navy mb-2">El "Corazón" Operativo</h2>
+<p class="text-gray-600 leading-relaxed">
+                        Módulo central responsable de la creación, edición y población de órdenes generales. Garantiza la integridad institucional mediante reglas de negocio estrictas antes de cualquier ejecución en base de datos.
+                    </p>
+</div>
+<div class="text-5xl text-gray-200">
+<i class="fas fa-cogs"></i>
+</div>
+</div>
+<!-- Cards Grid -->
+<div class="grid grid-cols-2 gap-6 flex-1">
+<!-- Card 1: Validaciones Inteligentes -->
+<div class="validation-card card-alert p-6">
+<div class="flex justify-between items-start mb-2">
+<div class="card-icon-wrapper bg-alert-light">
+<i class="fas fa-exclamation-triangle text-xl text-alert"></i>
+</div>
+<span class="text-xs font-bold text-white bg-red-600 px-2 py-1 rounded">CRÍTICO</span>
+</div>
+<h3 class="text-lg font-bold text-navy mb-3">Validaciones Inteligentes</h3>
+<ul class="space-y-3 text-sm text-gray-600 flex-1">
+<li class="flex items-start">
+<i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+<div>
+<strong class="text-gray-800">Plaza Vacante:</strong>
+<p class="text-xs mt-0.5">Verifica disponibilidad antes de asignar.</p>
+</div>
+</li>
+<li class="flex items-start">
+<i class="fas fa-user-lock text-red-500 mt-1 mr-2"></i>
+<div>
+<strong class="text-gray-800">Conflicto de Plaza:</strong>
+<p class="text-xs mt-0.5">Alerta si el puesto ya está comprometido en otro proyecto.</p>
+</div>
+</li>
+<li class="flex items-start">
+<i class="fas fa-balance-scale text-yellow-600 mt-1 mr-2"></i>
+<div>
+<strong class="text-gray-800">Grado Acorde:</strong>
+<p class="text-xs mt-0.5">Control de "Cambio Inapropiado" según jerarquía.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Card 2: Lógica de Dependencia -->
+<div class="validation-card card-logic p-6">
+<div class="flex justify-between items-start mb-2">
+<div class="card-icon-wrapper bg-logic-light">
+<i class="fas fa-project-diagram text-xl text-logic"></i>
+</div>
+</div>
+<h3 class="text-lg font-bold text-navy mb-3">Lógica de Dependencia</h3>
+<p class="text-sm text-gray-600 mb-4 text-justify">
+                        Sistema automatizado que mantiene la consistencia de los movimientos de personal cuando ocurren cambios en la cadena de mando.
+                    </p>
+<div class="bg-blue-50 rounded p-3 border border-blue-100 mt-auto">
+<div class="flex items-center mb-2">
+<i class="fas fa-user-minus text-blue-400 mr-2"></i>
+<span class="text-xs font-bold text-blue-800">Escenario: Eliminación de Oficial</span>
+</div>
+<p class="text-xs text-blue-700 italic">
+                            "Si se elimina a un oficial que iba a ocupar una plaza, el sistema rastrea quién dependía de ese movimiento y actualiza sus motivos automáticamente."
+                        </p>
+</div>
+</div>
+<!-- Card 3: Administración y Edición -->
+<div class="validation-card card-admin p-6">
+<div class="flex justify-between items-start mb-2">
+<div class="card-icon-wrapper bg-admin-light">
+<i class="fas fa-edit text-xl text-admin"></i>
+</div>
+</div>
+<h3 class="text-lg font-bold text-navy mb-3">Creación y Edición</h3>
+<div class="space-y-4">
+<div class="flex items-center">
+<div class="w-8 h-8 rounded bg-gray-100 flex items-center justify-center mr-3 text-gray-500">
+<i class="fas fa-folder-plus"></i>
+</div>
+<div>
+<p class="text-sm font-bold text-navy">Apertura de Órdenes</p>
+<p class="text-xs text-gray-500">Inicialización de proyectos de nombramiento.</p>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-8 h-8 rounded bg-gray-100 flex items-center justify-center mr-3 text-gray-500">
+<i class="fas fa-users"></i>
+</div>
+<div>
+<p class="text-sm font-bold text-navy">Población de Personal</p>
+<p class="text-xs text-gray-500">Asignación masiva o individual a plazas.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4: Seguridad y Cifrado -->
+<div class="validation-card card-security p-6">
+<div class="flex justify-between items-start mb-2">
+<div class="card-icon-wrapper bg-security-light">
+<i class="fas fa-shield-alt text-xl text-security"></i>
+</div>
+<i class="fas fa-lock text-gray-300"></i>
+</div>
+<h3 class="text-lg font-bold text-navy mb-3">Cifrado en Masa</h3>
+<p class="text-sm text-gray-600 mb-4 text-justify">
+                        Protocolo de seguridad aplicado en la capa de controlador antes de la persistencia de datos.
+                    </p>
+<div class="flex items-center justify-center bg-gray-50 rounded p-3 border border-gray-100">
+<div class="text-center px-2">
+<p class="text-xs text-gray-400 font-mono">DATOS SENSIBLES</p>
+<i class="fas fa-file-alt text-gray-400 my-1"></i>
+</div>
+<div class="px-2">
+<i class="fas fa-arrow-right text-green-500 text-sm"></i>
+</div>
+<div class="text-center px-2 bg-white rounded shadow-sm border border-green-100 py-1">
+<i class="fas fa-cog fa-spin text-green-500 text-xs"></i>
+<p class="text-[10px] font-bold text-green-700 mt-1">ENCRIPTACIÓN</p>
+</div>
+<div class="px-2">
+<i class="fas fa-arrow-right text-green-500 text-sm"></i>
+</div>
+<div class="text-center px-2">
+<p class="text-xs text-gray-400 font-mono">BD INFORMIX</p>
+<i class="fas fa-database text-navy my-1"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<div class="sticky-footer w-full py-3 bg-gray-100 border-t border-gray-300 flex items-center justify-between px-12 z-20">
+<div class="flex items-center space-x-4">
+<a href="pag2.html" class="nav-button"><i class="fas fa-arrow-left"></i> Anterior</a>
+<p class="text-xs text-gray-400">PÁGINA 03</p>
+</div>
+<div class="flex items-center space-x-4">
+<div class="w-2 h-2 rounded-full bg-gold"></div>
+<p class="text-xs text-gray-500 font-bold tracking-wider">MÓDULO ADMINISTRATIVO</p>
+<div class="h-3 w-px bg-gray-300"></div>
+<a href="pag4.html" class="nav-button">Siguiente <i class="fas fa-arrow-right"></i></a>
+</div>
+</div>
+</div>
+</body>
+</html>
